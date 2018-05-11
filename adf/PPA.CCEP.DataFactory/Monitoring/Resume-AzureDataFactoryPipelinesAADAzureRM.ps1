@@ -1,9 +1,9 @@
 ﻿param(
-    $TenantID          = "bcace1c8-076d-40ee-818d-41c366765fdd",
-    $ClientID          = "138b3aae-f4e4-4f0e-bc1e-fd4841029298",
-    $ClientSecret      = "M59Ht1+bLmGXvOF0r7mIo6LoTIY6yulIb/U3vjxNsD0=",
-    $subscriptionId    = "756c704a-1366-447c-ba04-6ce33b08d1bb",
-    $ResourceGroupName = "138-CCEP-DevInt-AppData",
+    $TenantID          = "",
+    $ClientID          = "",
+    $ClientSecret      = "",
+    $subscriptionId    = "",
+    $ResourceGroupName = "",
     [switch] $UseAccessToken = $true,
     [validateset('daily','quarterly','monthly')] $frequency = "quarterly",
 	[array] $PipelinesToResume = @(
