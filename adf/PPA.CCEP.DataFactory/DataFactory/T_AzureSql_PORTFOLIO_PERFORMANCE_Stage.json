@@ -1,0 +1,15 @@
+{
+    "name": "T_AzureSql_PORTFOLIO_PERFORMANCE_Staging",
+    "properties": {
+        "published": false,
+        "type": "AzureSqlTable",
+        "linkedServiceName": "LS_AzureSql_Staging",
+        "typeProperties": {
+            "tableName": "[CustomCoreStage].[PORTFOLIO_PERFORMANCE]"
+        },
+        "availability": {
+            "frequency": "Month",
+            "interval": 3
+        }
+    }
+}

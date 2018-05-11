@@ -1,0 +1,15 @@
+{
+    "name": "T_AzureSql_REALIZED_GAINS_LOSSES_Staging",
+    "properties": {
+        "published": false,
+        "type": "AzureSqlTable",
+        "linkedServiceName": "LS_AzureSql_Staging",
+        "typeProperties": {
+            "tableName": "[CustomCoreStage].[REALIZED_GAINS_LOSSES]"
+        },
+        "availability": {
+            "frequency": "Month",
+            "interval": 3
+        }
+    }
+}

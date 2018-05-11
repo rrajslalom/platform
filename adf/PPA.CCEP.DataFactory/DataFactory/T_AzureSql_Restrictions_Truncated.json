@@ -1,0 +1,17 @@
+{
+  "name": "T_AzureSql_Restrictions_Truncated",
+  "properties": {
+    "published": false,
+    "type": "AzureSqlTable",
+    "linkedServiceName": "LS_AzureSql_Web",
+    "typeProperties": {
+      "tableName": "[dbo].[Restrictions]"
+    },
+    "availability": {
+      "frequency": "Month",
+      "interval": 1,
+      "style": "StartOfInterval"
+    }
+  },
+  "$schema": "http://datafactories.schema.management.azure.com/internalschemas/2015-09-01/Microsoft.DataFactory.table.json"
+}

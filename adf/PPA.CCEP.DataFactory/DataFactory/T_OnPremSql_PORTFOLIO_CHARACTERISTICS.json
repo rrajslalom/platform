@@ -1,0 +1,21 @@
+{
+  "name": "T_OnPremSql_PORTFOLIO_CHARACTERISTICS",
+  "properties": {
+    "published": false,
+    "type": "SqlServerTable",
+    "linkedServiceName": "LS_OnPremSql",
+    "typeProperties": {
+      "tableName": "[DBO].[PORTFOLIO_CHARACTERISTICS]"
+    },
+    "availability": {
+      "frequency": "Month",
+      "interval": 3,
+      "anchorDateTime": "2016-10-01T00:00:00Z",
+      "offset": "12.00:00:00",
+      "style": "StartOfInterval"
+    },
+    "external": true,
+    "policy": {}
+  },
+  "$schema": "http://datafactories.schema.management.azure.com/internalschemas/2015-09-01/Microsoft.DataFactory.table.json"
+}

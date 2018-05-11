@@ -1,0 +1,100 @@
+{
+    "name": "P_Copy_%source_table_name%",
+    "properties": {
+        "description": "P_Copy_%source_table_name%",
+        "activities": [
+            {
+                "type": "SqlServerStoredProcedure",
+                "typeProperties": {
+                    "storedProcedureName": "[%stage_Schema_name%].[usp_Truncate_%dest_table_name%]",
+                    "storedProcedureParameters": {}
+                },
+                "outputs": [
+                    {
+                        "name": "T_AzureSql_%dest_table_name%_StageTruncated"
+                    }
+                ],
+                "policy": {
+                    "concurrency": 1,
+                    "executionPriorityOrder": "OldestFirst",
+                    "retry": %retry_count%,
+                    "timeout": "%activity_time_out%"
+                },
+                "scheduler": {
+                    "frequency": "Month",
+                    "interval": 3
+                },
+                "name": "A_TruncateStageTable"
+            },
+			{
+                "name": "A_Copy_%source_table_name%_FromOnPremSqlToAzureSqlStaging",
+                "type": "Copy",
+                "inputs": [
+                    {
+                        "name": "T_OnPremSql_%source_table_name%"
+                    },
+					{
+                        "name": "T_AzureSql_%dest_table_name%_StageTruncated"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "T_AzureSql_%dest_table_name%_Staging"
+                    }
+                ],
+                "typeProperties": {
+                    "source": {
+                        "type": "SqlSource",
+                        "sqlReaderQuery": "select %table_columns% from %source_schema_name%.%source_table_name%"
+                    },
+                    "sink": {
+                        "type": "SqlSink"
+                    }
+                },
+                "policy": {
+                    "concurrency": 1,
+                    "executionPriorityOrder": "OldestFirst",
+                    "retry": %retry_count%,
+                    "timeout": "%activity_time_out%"
+                },
+                "scheduler": {
+                    "frequency": "Month",
+                    "interval": 3
+                }
+            },
+			{
+                "type": "SqlServerStoredProcedure",
+                "typeProperties": {
+                    "storedProcedureName": "%dest_Schema_name%.usp_Update_%dest_table_name%",
+                    "storedProcedureParameters": {}
+                },
+                "inputs": [
+                    {
+                        "name": "T_AzureSql_%dest_table_name%_Staging"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "name": "T_AzureSql_%dest_table_name%_Web"
+                    }
+                ],
+                "policy": {
+                    "concurrency": 1,
+                    "executionPriorityOrder": "OldestFirst",
+                    "retry": %retry_count%,
+                    "timeout": "%activity_time_out%"
+                },
+                "scheduler": {
+                    "frequency": "Month",
+                    "interval": 3
+                },
+                "name": "A_MergeStageIntoWeb"
+            }
+        ],
+        "start": "%start_time%",
+        "end": "%end_time%",
+        "isPaused": true,
+        "hubName": "",
+        "pipelineMode": "Scheduled"
+    }
+}

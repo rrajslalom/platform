@@ -1,0 +1,70 @@
+{
+  "name": "P_Copy_RestrictionCategories",
+  "properties": {
+    "description": "P_Copy_RestrictionCategories",
+    "activities": [
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[sp_Truncate_RestrictionCategories]",
+          "storedProcedureParameters": {}
+        },
+        "outputs": [
+          {
+            "name": "T_AzureSql_RestrictionCategories_Truncated"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 1,
+          "style": "StartOfInterval"
+        },
+        "name": "A_TruncateTable"
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "SqlSource",
+            "sqlReaderQuery": "SELECT  ID,CategoryName,[Order] FROM dbo.RestrictionCategories"
+          },
+          "sink": {
+            "type": "SqlSink",
+            "writeBatchSize": 0,
+            "writeBatchTimeout": "00:00:00"
+          }
+        },
+        "inputs": [
+          {
+            "name": "T_OnPremSql_RestrictionCategories"
+          },
+          {
+            "name": "T_AzureSql_RestrictionCategories_Truncated"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "T_AzureSql_RestrictionCategories_Web"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 1,
+          "style": "StartOfInterval"
+        },
+        "name": "A_Copy_RestrictionCategories_FromOnPremSqlToAzureSqlWeb"
+      }
+    ],
+    "start": "2017-11-07T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z",
+    "isPaused": true,
+    "pipelineMode": "Scheduled"
+  },
+  "$schema": "http://datafactories.schema.management.azure.com/internalschemas/2015-09-01/Microsoft.DataFactory.pipeline.json"
+}

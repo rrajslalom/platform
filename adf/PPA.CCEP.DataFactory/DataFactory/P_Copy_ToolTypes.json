@@ -1,0 +1,70 @@
+{
+  "name": "P_Copy_ToolTypes",
+  "properties": {
+    "description": "P_Copy_ToolTypes",
+    "activities": [
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[dbo].[sp_Truncate_ToolTypes]",
+          "storedProcedureParameters": {}
+        },
+        "outputs": [
+          {
+            "name": "T_AzureSql_ToolTypes_Truncated"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 1,
+          "style": "StartOfInterval"
+        },
+        "name": "A_TruncateTable"
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "SqlSource",
+            "sqlReaderQuery": "SELECT  ID,ToolType FROM dbo.ToolTypes"
+          },
+          "sink": {
+            "type": "SqlSink",
+            "writeBatchSize": 0,
+            "writeBatchTimeout": "00:00:00"
+          }
+        },
+        "inputs": [
+          {
+            "name": "T_OnPremSql_ToolTypes"
+          },
+          {
+            "name": "T_AzureSql_ToolTypes_Truncated"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "T_AzureSql_ToolTypes_Web"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 1,
+          "style": "StartOfInterval"
+        },
+        "name": "A_Copy_ToolTypes_FromOnPremSqlToAzureSqlWeb"
+      }
+    ],
+    "start": "2017-11-07T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z",
+    "isPaused": true,
+    "pipelineMode": "Scheduled"
+  },
+  "$schema": "http://datafactories.schema.management.azure.com/internalschemas/2015-09-01/Microsoft.DataFactory.pipeline.json"
+}

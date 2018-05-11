@@ -1,0 +1,96 @@
+{
+  "name": "P_Copy_COUNTRY_EXPOSURE",
+  "properties": {
+    "description": "P_Copy_COUNTRY_EXPOSURE",
+    "activities": [
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[CustomCoreStage].[usp_Truncate_COUNTRY_EXPOSURE]",
+          "storedProcedureParameters": {}
+        },
+        "outputs": [
+          {
+            "name": "T_AzureSql_COUNTRY_EXPOSURE_StageTruncated"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 3,
+          "style": "StartOfInterval"
+        },
+        "name": "A_TruncateStageTable"
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "SqlSource",
+            "sqlReaderQuery": "select REPORTING_YEAR,REPORTING_QUARTER,ACCOUNT_TKN_ID,COUNTRY_NAME,PORTFOLIO_WEIGHT,BENCHMARK_WEIGHT from DBO.COUNTRY_EXPOSURE"
+          },
+          "sink": {
+            "type": "SqlSink",
+            "writeBatchSize": 0,
+            "writeBatchTimeout": "00:00:00"
+          }
+        },
+        "inputs": [
+          {
+            "name": "T_OnPremSql_COUNTRY_EXPOSURE"
+          },
+          {
+            "name": "T_AzureSql_COUNTRY_EXPOSURE_StageTruncated"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "T_AzureSql_COUNTRY_EXPOSURE_Staging"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 3,
+          "style": "StartOfInterval"
+        },
+        "name": "A_Copy_COUNTRY_EXPOSURE_FromOnPremSqlToAzureSqlStaging"
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "CustomCoreWeb.usp_Update_COUNTRY_EXPOSURE",
+          "storedProcedureParameters": {}
+        },
+        "inputs": [
+          {
+            "name": "T_AzureSql_COUNTRY_EXPOSURE_Staging"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "T_AzureSql_COUNTRY_EXPOSURE_Web"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 3,
+          "style": "StartOfInterval"
+        },
+        "name": "A_MergeStageIntoWeb"
+      }
+    ],
+    "start": "2016-10-01T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z",
+    "isPaused": true,
+    "pipelineMode": "Scheduled"
+  },
+  "$schema": "http://datafactories.schema.management.azure.com/internalschemas/2015-09-01/Microsoft.DataFactory.pipeline.json"
+}

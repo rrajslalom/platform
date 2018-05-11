@@ -1,0 +1,11 @@
+﻿{
+    "name": "LS_AzureSql_Web",
+    "properties": {
+        "description": "",
+        "hubName": "",
+        "type": "AzureSqlDatabase",
+        "typeProperties": {
+            "connectionString": "%webConnectionString%"
+        }
+    }
+}

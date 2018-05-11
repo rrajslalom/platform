@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>f0a02ecb-55ad-453c-a0c2-7056a4fb4076</ProjectGuid>
+    <OutputType>File</OutputType>
+    <AssemblyName>DataFactory</AssemblyName>
+    <ApiVersion>2015-09-01</ApiVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <Name>138-CCEP-DevInt-AppData-DataFactory</Name>
+    <RootNamespace>138-CCEP-DevInt-AppData-DataFactory</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ADFConfigFileToPublish>
+    </ADFConfigFileToPublish>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Dependencies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Script Include="LS_AzureSql_Staging.json" />
+    <Script Include="LS_AzureSql_Web.json" />
+    <Script Include="LS_OnPremSql.json" />
+    <Script Include="P_Copy_ACCOUNT_CONTACTS.json" />
+    <Script Include="P_Copy_ACCOUNT_INFO.json" />
+    <Script Include="P_Copy_ACCOUNT_SUMMARY.json" />
+    <Script Include="P_Copy_COUNTRY_EXPOSURE.json" />
+    <Script Include="P_Copy_CURRENT_REPORTING_YEAR_QUARTER.json" />
+    <Script Include="P_Copy_DIVIDEND_SWEPT.json" />
+    <Script Include="P_Copy_FormTypes.json" />
+    <Script Include="P_Copy_IndexCategories.json" />
+    <Script Include="P_Copy_IndexCategoryMapping.json" />
+    <Script Include="P_Copy_IndexConstituentMapping.json" />
+    <Script Include="P_Copy_IndexReturns.json" />
+    <Script Include="P_Copy_Indices.json" />
+    <Script Include="P_Copy_MARKET_COMMENTARY.json" />
+    <Script Include="P_Copy_PORTFOLIO_CHARACTERISTICS.json" />
+    <Script Include="P_Copy_PORTFOLIO_PERFORMANCE.json" />
+    <Script Include="P_Copy_PORTFOLIO_VALUE.json" />
+    <Script Include="P_Copy_REALIZED_GAINS_LOSSES.json" />
+    <Script Include="P_Copy_RestrictionCategories.json" />
+    <Script Include="P_Copy_Restrictions.json" />
+    <Script Include="P_Copy_SECTOR_WEIGHTS.json" />
+    <Script Include="P_Copy_Securities.json" />
+    <Script Include="P_Copy_SecurityRestrictionMapping.json" />
+    <Script Include="T_AzureSql_ACCOUNT_CONTACTS_StageTruncated.json" />
+    <Script Include="T_AzureSql_ACCOUNT_CONTACTS_Staging.json" />
+    <Script Include="T_AzureSql_ACCOUNT_CONTACTS_Web.json" />
+    <Script Include="T_AzureSql_ACCOUNT_INFO_StageTruncated.json" />
+    <Script Include="T_AzureSql_ACCOUNT_INFO_StageTruncated_Daily.json" />
+    <Script Include="T_AzureSql_ACCOUNT_INFO_Staging.json" />
+    <Script Include="T_AzureSql_ACCOUNT_INFO_Staging_Daily.json" />
+    <Script Include="T_AzureSql_ACCOUNT_INFO_Web.json" />
+    <Script Include="T_AzureSql_ACCOUNT_INFO_Web_Daily.json" />
+    <Script Include="T_AzureSql_ACCOUNT_SUMMARY_StageTruncated.json" />
+    <Script Include="T_AzureSql_ACCOUNT_SUMMARY_StageTruncated_Daily.json" />
+    <Script Include="T_AzureSql_ACCOUNT_SUMMARY_Staging.json" />
+    <Script Include="T_AzureSql_ACCOUNT_SUMMARY_Staging_Daily.json" />
+    <Script Include="T_AzureSql_ACCOUNT_SUMMARY_Web.json" />
+    <Script Include="T_AzureSql_ACCOUNT_SUMMARY_Web_Daily.json" />
+    <Script Include="T_AzureSql_COUNTRY_EXPOSURE_StageTruncated.json" />
+    <Script Include="T_AzureSql_COUNTRY_EXPOSURE_Staging.json" />
+    <Script Include="T_AzureSql_COUNTRY_EXPOSURE_Web.json" />
+    <Script Include="T_AzureSql_CURRENT_REPORTING_YEAR_QUARTER_StageTruncated.json" />
+    <Script Include="T_AzureSql_CURRENT_REPORTING_YEAR_QUARTER_Staging.json" />
+    <Script Include="T_AzureSql_CURRENT_REPORTING_YEAR_QUARTER_Web.json" />
+    <Script Include="T_AzureSql_DIVIDEND_SWEPT_StageTruncated.json" />
+    <Script Include="T_AzureSql_DIVIDEND_SWEPT_Staging.json" />
+    <Script Include="T_AzureSql_DIVIDEND_SWEPT_Web.json" />
+    <Script Include="T_AzureSql_FormTypes_Truncated.json" />
+    <Script Include="T_AzureSql_FormTypes_Web.json" />
+    <Script Include="T_AzureSql_IndexCategories_Truncated.json" />
+    <Script Include="T_AzureSql_IndexCategories_Web.json" />
+    <Script Include="T_AzureSql_IndexCategoryMapping_Truncated.json" />
+    <Script Include="T_AzureSql_IndexCategoryMapping_Web.json" />
+    <Script Include="T_AzureSql_IndexConstituentMapping_Truncated.json" />
+    <Script Include="T_AzureSql_IndexConstituentMapping_Web.json" />
+    <Script Include="T_AzureSql_IndexReturns_Truncated.json" />
+    <Script Include="T_AzureSql_IndexReturns_Web.json" />
+    <Script Include="T_AzureSql_Indices_Truncated.json" />
+    <Script Include="T_AzureSql_Indices_Web.json" />
+    <Script Include="T_AzureSql_MARKET_COMMENTARY_StageTruncated.json" />
+    <Script Include="T_AzureSql_MARKET_COMMENTARY_Staging.json" />
+    <Script Include="T_AzureSql_MARKET_COMMENTARY_Web.json" />
+    <Script Include="T_AzureSql_PORTFOLIO_CHARACTERISTICS_StageTruncated.json" />
+    <Script Include="T_AzureSql_PORTFOLIO_CHARACTERISTICS_Staging.json" />
+    <Script Include="T_AzureSql_PORTFOLIO_CHARACTERISTICS_Web.json" />
+    <Script Include="T_AzureSql_PORTFOLIO_PERFORMANCE_StageTruncated.json" />
+    <Script Include="T_AzureSql_PORTFOLIO_PERFORMANCE_Staging.json" />
+    <Script Include="T_AzureSql_PORTFOLIO_PERFORMANCE_Web.json" />
+    <Script Include="T_AzureSql_PORTFOLIO_VALUE_StageTruncated.json" />
+    <Script Include="T_AzureSql_PORTFOLIO_VALUE_Staging.json" />
+    <Script Include="T_AzureSql_PORTFOLIO_VALUE_Web.json" />
+    <Script Include="T_AzureSql_REALIZED_GAINS_LOSSES_StageTruncated.json" />
+    <Script Include="T_AzureSql_REALIZED_GAINS_LOSSES_Staging.json" />
+    <Script Include="T_AzureSql_REALIZED_GAINS_LOSSES_Web.json" />
+    <Script Include="T_AzureSql_RestrictionCategories_Truncated.json" />
+    <Script Include="T_AzureSql_RestrictionCategories_Web.json" />
+    <Script Include="T_AzureSql_Restrictions_Truncated.json" />
+    <Script Include="T_AzureSql_Restrictions_Web.json" />
+    <Script Include="T_AzureSql_SECTOR_WEIGHTS_StageTruncated.json" />
+    <Script Include="T_AzureSql_SECTOR_WEIGHTS_Staging.json" />
+    <Script Include="T_AzureSql_SECTOR_WEIGHTS_Web.json" />
+    <Script Include="T_AzureSql_Securities_Truncated.json" />
+    <Script Include="T_AzureSql_Securities_Web.json" />
+    <Script Include="T_AzureSql_SecurityRestrictionMapping_Truncated.json" />
+    <Script Include="T_AzureSql_SecurityRestrictionMapping_Web.json" />
+    <Script Include="T_AzureSql_SecuritySectors_Truncated.json" />
+    <Script Include="T_AzureSql_SecuritySectors_Web.json" />
+    <Script Include="T_AzureSql_ThorSummaries_Truncated.json" />
+    <Script Include="T_AzureSql_ThorSummaries_Web.json" />
+    <Script Include="T_AzureSql_ThorSummaryRowTypes_Truncated.json" />
+    <Script Include="T_AzureSql_ThorSummaryRowTypes_Web.json" />
+    <Script Include="T_AzureSql_ThorSummarySetTypes_Truncated.json" />
+    <Script Include="T_AzureSql_ThorSummarySetTypes_Web.json" />
+    <Script Include="T_AzureSql_ThorSummaryValues_Truncated.json" />
+    <Script Include="T_AzureSql_ThorSummaryValues_Web.json" />
+    <Script Include="T_AzureSql_ToolTypes_Truncated.json" />
+    <Script Include="T_AzureSql_ToolTypes_Web.json" />
+    <Script Include="T_AzureSql_TOP_HOLDINGS_StageTruncated.json" />
+    <Script Include="T_AzureSql_TOP_HOLDINGS_Staging.json" />
+    <Script Include="T_AzureSql_TOP_HOLDINGS_Web.json" />
+    <Script Include="T_AzureSql_WASH_SALE_COORDINATED_StageTruncated.json" />
+    <Script Include="T_AzureSql_WASH_SALE_COORDINATED_Staging.json" />
+    <Script Include="T_AzureSql_WASH_SALE_COORDINATED_Web.json" />
+    <Script Include="T_OnPremSql_ACCOUNT_CONTACTS.json" />
+    <Script Include="T_OnPremSql_ACCOUNT_INFO.json" />
+    <Script Include="T_OnPremSql_ACCOUNT_SUMMARY.json" />
+    <Script Include="T_OnPremSql_COUNTRY_EXPOSURE.json" />
+    <Script Include="T_OnPremSql_CURRENT_REPORTING_YEAR_QUARTER.json" />
+    <Script Include="T_OnPremSql_DIVIDEND_SWEPT.json" />
+    <Script Include="T_OnPremSql_FormTypes.json" />
+    <Script Include="T_OnPremSql_IndexCategories.json" />
+    <Script Include="T_OnPremSql_IndexCategoryMapping.json" />
+    <Script Include="T_OnPremSql_IndexConstituentMapping.json" />
+    <Script Include="T_OnPremSql_IndexReturns.json" />
+    <Script Include="T_OnPremSql_Indices.json" />
+    <Script Include="T_OnPremSql_MARKET_COMMENTARY.json" />
+    <Script Include="T_OnPremSql_PORTFOLIO_CHARACTERISTICS.json" />
+    <Script Include="T_OnPremSql_PORTFOLIO_PERFORMANCE.json" />
+    <Script Include="T_OnPremSql_PORTFOLIO_VALUE.json" />
+    <Script Include="T_OnPremSql_REALIZED_GAINS_LOSSES.json" />
+    <Script Include="T_OnPremSql_RestrictionCategories.json" />
+    <Script Include="T_OnPremSql_Restrictions.json" />
+    <Script Include="T_OnPremSql_SECTOR_WEIGHTS.json" />
+    <Script Include="T_OnPremSql_Securities.json" />
+    <Script Include="T_OnPremSql_SecurityRestrictionMapping.json" />
+    <Script Include="T_OnPremSql_SecuritySectors.json" />
+    <Script Include="T_OnPremSql_ThorSummaries.json" />
+    <Script Include="T_OnPremSql_ThorSummaryRowTypes.json" />
+    <Script Include="T_OnPremSql_ThorSummarySetTypes.json" />
+    <Script Include="T_OnPremSql_ThorSummaryValues.json" />
+    <Script Include="T_OnPremSql_ToolTypes.json" />
+    <Script Include="T_OnPremSql_TOP_HOLDINGS.json" />
+    <Script Include="T_OnPremSql_WASH_SALE_COORDINATED.json" />
+  </ItemGroup>
+  <Import Project="$(AppData)\Microsoft\DataFactory Tools for Visual Studio\MsBuild\1.0\DataFactory.targets" />
+</Project>

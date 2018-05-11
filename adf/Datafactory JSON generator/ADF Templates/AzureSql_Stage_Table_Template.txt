@@ -1,0 +1,15 @@
+{
+    "name": "T_AzureSql_%Table_Name%_Staging",
+    "properties": {
+        "published": false,
+        "type": "AzureSqlTable",
+        "linkedServiceName": "LS_AzureSql_Staging",
+        "typeProperties": {
+            "tableName": "[%Table_Schema%].[%Table_Name%]"
+        },
+        "availability": {
+            "frequency": "Month",
+            "interval": 3
+        }
+    }
+}

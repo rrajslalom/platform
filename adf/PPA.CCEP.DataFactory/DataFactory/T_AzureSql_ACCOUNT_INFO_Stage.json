@@ -1,0 +1,15 @@
+{
+    "name": "T_AzureSql_ACCOUNT_INFO_Staging",
+    "properties": {
+        "published": false,
+        "type": "AzureSqlTable",
+        "linkedServiceName": "LS_AzureSql_Staging",
+        "typeProperties": {
+            "tableName": "[CustomCoreStage].[ACCOUNT_INFO]"
+        },
+        "availability": {
+            "frequency": "Month",
+            "interval": 3
+        }
+    }
+}

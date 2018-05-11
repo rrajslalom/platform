@@ -1,0 +1,15 @@
+{
+    "name": "T_AzureSql_ACCOUNT_SUMMARY_Staging",
+    "properties": {
+        "published": false,
+        "type": "AzureSqlTable",
+        "linkedServiceName": "LS_AzureSql_Staging",
+        "typeProperties": {
+            "tableName": "[CustomCoreStage].[ACCOUNT_SUMMARY]"
+        },
+        "availability": {
+            "frequency": "Month",
+            "interval": 3
+        }
+    }
+}

@@ -1,0 +1,14 @@
+﻿{
+    "name": "LS_OnPremSql",
+    "properties": {
+        "description": "On Prem Data mart",
+        "hubName": "",
+        "type": "OnPremisesSqlServer",
+        "typeProperties": {
+            "connectionString": "%onPremConnectionString%",
+            "gatewayName": "%DMGName%",
+            "userName": "%onPremUserName%",
+            "password": "%onPremPassword%"
+        }
+    }
+}

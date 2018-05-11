@@ -1,0 +1,96 @@
+{
+  "name": "P_Copy_ACCOUNT_SUMMARY",
+  "properties": {
+    "description": "P_Copy_ACCOUNT_SUMMARY",
+    "activities": [
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[CustomCoreStage].[usp_Truncate_ACCOUNT_SUMMARY]",
+          "storedProcedureParameters": {}
+        },
+        "outputs": [
+          {
+            "name": "T_AzureSql_ACCOUNT_SUMMARY_StageTruncated"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 3,
+          "style": "StartOfInterval"
+        },
+        "name": "A_TruncateStageTable"
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "SqlSource",
+            "sqlReaderQuery": "select REPORTING_YEAR,REPORTING_QUARTER,ACCOUNT_TKN_ID,ACCOUNT_SHORT_NAME,ACCOUNT_LONG_NAME,INCEPTION_DATE,ADVISER_NAME,COMPANY_NAME,ADVISER_TKN_ID,REP_NAME,REP_TKN_ID,BENCHMARK_LONG_NAME,MARKET_VALUE,COST_BASIS,TAX_ALPHA_SINCE_INCEPTION,HAS_RESTRICTION,IS_FUNDED_IN_KIND,IS_TAXABLE,CUSTODIAN_ACCOUNT_ID from DBO.ACCOUNT_SUMMARY"
+          },
+          "sink": {
+            "type": "SqlSink",
+            "writeBatchSize": 0,
+            "writeBatchTimeout": "00:00:00"
+          }
+        },
+        "inputs": [
+          {
+            "name": "T_OnPremSql_ACCOUNT_SUMMARY"
+          },
+          {
+            "name": "T_AzureSql_ACCOUNT_SUMMARY_StageTruncated"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "T_AzureSql_ACCOUNT_SUMMARY_Staging"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 3,
+          "style": "StartOfInterval"
+        },
+        "name": "A_Copy_ACCOUNT_SUMMARY_FromOnPremSqlToAzureSqlStaging"
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "CustomCoreWeb.usp_Update_ACCOUNT_SUMMARY",
+          "storedProcedureParameters": {}
+        },
+        "inputs": [
+          {
+            "name": "T_AzureSql_ACCOUNT_SUMMARY_Staging"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "T_AzureSql_ACCOUNT_SUMMARY_Web"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 3,
+          "style": "StartOfInterval"
+        },
+        "name": "A_MergeStageIntoWeb"
+      }
+    ],
+    "start": "2016-10-01T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z",
+    "isPaused": true,
+    "pipelineMode": "Scheduled"
+  },
+  "$schema": "http://datafactories.schema.management.azure.com/internalschemas/2015-09-01/Microsoft.DataFactory.pipeline.json"
+}

@@ -1,0 +1,15 @@
+{
+    "name": "T_AzureSql_WASH_SALE_COORDINATED_Staging",
+    "properties": {
+        "published": false,
+        "type": "AzureSqlTable",
+        "linkedServiceName": "LS_AzureSql_Staging",
+        "typeProperties": {
+            "tableName": "[CustomCoreStage].[WASH_SALE_COORDINATED]"
+        },
+        "availability": {
+            "frequency": "Month",
+            "interval": 3
+        }
+    }
+}

@@ -1,0 +1,96 @@
+{
+  "name": "P_Copy_PORTFOLIO_CHARACTERISTICS",
+  "properties": {
+    "description": "P_Copy_PORTFOLIO_CHARACTERISTICS",
+    "activities": [
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "[CustomCoreStage].[usp_Truncate_PORTFOLIO_CHARACTERISTICS]",
+          "storedProcedureParameters": {}
+        },
+        "outputs": [
+          {
+            "name": "T_AzureSql_PORTFOLIO_CHARACTERISTICS_StageTruncated"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 3,
+          "style": "StartOfInterval"
+        },
+        "name": "A_TruncateStageTable"
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "SqlSource",
+            "sqlReaderQuery": "select REPORTING_YEAR,REPORTING_QUARTER,ACCOUNT_TKN_ID,PORTFOLIO_NUMBER_OF_HOLDINGS,PORTFOLIO_DIVIDEND_YIELD,PORTFOLIO_WEIGHTED_AVERAGE_CAP,BENCHMARK_NUMBER_OF_HOLDINGS,BENCHMARK_DIVIDEND_YIELD,BENCHMARK_WEIGHTED_AVERAGE_CAP from DBO.PORTFOLIO_CHARACTERISTICS"
+          },
+          "sink": {
+            "type": "SqlSink",
+            "writeBatchSize": 0,
+            "writeBatchTimeout": "00:00:00"
+          }
+        },
+        "inputs": [
+          {
+            "name": "T_OnPremSql_PORTFOLIO_CHARACTERISTICS"
+          },
+          {
+            "name": "T_AzureSql_PORTFOLIO_CHARACTERISTICS_StageTruncated"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "T_AzureSql_PORTFOLIO_CHARACTERISTICS_Staging"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 3,
+          "style": "StartOfInterval"
+        },
+        "name": "A_Copy_PORTFOLIO_CHARACTERISTICS_FromOnPremSqlToAzureSqlStaging"
+      },
+      {
+        "type": "SqlServerStoredProcedure",
+        "typeProperties": {
+          "storedProcedureName": "CustomCoreWeb.usp_Update_PORTFOLIO_CHARACTERISTICS",
+          "storedProcedureParameters": {}
+        },
+        "inputs": [
+          {
+            "name": "T_AzureSql_PORTFOLIO_CHARACTERISTICS_Staging"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "T_AzureSql_PORTFOLIO_CHARACTERISTICS_Web"
+          }
+        ],
+        "policy": {
+          "timeout": "15:00:00"
+        },
+        "scheduler": {
+          "frequency": "Month",
+          "interval": 3,
+          "style": "StartOfInterval"
+        },
+        "name": "A_MergeStageIntoWeb"
+      }
+    ],
+    "start": "2016-10-01T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z",
+    "isPaused": true,
+    "pipelineMode": "Scheduled"
+  },
+  "$schema": "http://datafactories.schema.management.azure.com/internalschemas/2015-09-01/Microsoft.DataFactory.pipeline.json"
+}

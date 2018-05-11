@@ -1,0 +1,19 @@
+{
+    "name": "T_OnPremSql_%Table_Name%",
+    "properties": {
+        "published": false,
+        "type": "SqlServerTable",
+        "linkedServiceName": "LS_OnPremSql",
+        "typeProperties": {
+            "tableName": "[%Table_Schema%].[%Table_Name%]"
+        },
+        "availability": {
+            "frequency": "Month",
+            "interval": 3,
+			"offset": "12.00:00:00",
+			"anchorDateTime": "2016-10-01T00:00:00Z",
+			"style": "EndOfInterval"
+        },
+	"external": true
+    }
+}
