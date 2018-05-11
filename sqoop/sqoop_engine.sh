@@ -1,4 +1,4 @@
-USERNAME="svcSqoopDLDev"
+USERNAME=""
 PASSWORD=''
 OPERATION="$1"
 #set -e
@@ -49,7 +49,7 @@ then
         else 
             echo "**********************Job doesnot exists creating new job $JOB_NAME"
             echo "****************** CREATE INCREMENTAL LOAD JOB **********************"
-                  sqoop job --create $JOB_NAME -- import --connect "jdbc:sqlserver://$SERVER.paraport.com;database=$DATABASE;username=$USERNAME;password=$password" --table $TABLE  --where "$WHERECLAUSE" --target-dir $TARGET_DIR  --incremental append --check-column $7 --split-by $7 --fields-terminated-by "\0x263A" --lines-terminated-by "\n" -m $THREADS --last-value '1900-01-01 00:00:00.000' --hive-drop-import-delims
+                  sqoop job --create $JOB_NAME -- import --connect "jdbc:sqlserver://$SERVER.paraport.com;database=$DATABASE;username=$USERNAME;password=$password" --table $TABLE  --where "$WHERECLAUSE" --target-dir $TARGET_DIR  --incremental append --check-column $7 --split-by $7 --fields-terminated-by "\0x263A" --lines-terminated-by "\n" -m $THREADS --last-value '1900-01-01 00:00:00.000' --hive-drop-import-delims --null-string '' --null-non-string ''
             if [ $? != 0 ]
 	    then
 	          echo "incremental load failed"
@@ -67,7 +67,7 @@ then
             TARGET_DIR=$TARGET_DIR"/"$SNAPSHOTPARTITION
             echo "$TARGET_DIR"
         fi
-           sqoop import --connect "jdbc:sqlserver://$SERVER.paraport.com;database=$DATABASE;username=$USERNAME;password=$password" --delete-target-dir --table $TABLE --where "$WHERECLAUSE" --target-dir $TARGET_DIR --fields-terminated-by "\0x263A" --lines-terminated-by "\n" --split-by $CHECK_COLUMN --num-mappers $THREADS --hive-drop-import-delims
+           sqoop import --connect "jdbc:sqlserver://$SERVER.paraport.com;database=$DATABASE;username=$USERNAME;password=$password" --delete-target-dir --table $TABLE --where "$WHERECLAUSE" --target-dir $TARGET_DIR --fields-terminated-by "\0x263A" --lines-terminated-by "\n" --split-by $CHECK_COLUMN --num-mappers $THREADS --hive-drop-import-delims --null-string '' --null-non-string ''
         if [ $? != 0 ]
         then
             echo "full/snapshot failed"
@@ -86,7 +86,7 @@ else
     echo "Export -----------------------------$HIVEDATABASE     $HIVETABLE"
     echo "delete from $TABLE where version=$VERSION and reportingperiod='"$YEARQUARTER"'"
     sqoop eval --connect "jdbc:sqlserver://$SERVER.paraport.com;database=$DATABASE;username=$USERNAME;password=$password" --query "delete from $TABLE where version=$VERSION and reportingperiodname='"$YEARQUARTER"'"
-    sqoop export --connect "jdbc:sqlserver://$SERVER.paraport.com;database=$DATABASE;username=$USERNAME;password=$password" --table $TABLE --export-dir "/data/ccep/processed/reportingmetricssnapshot_new/reportingperiodname=$YEARQUARTER/version=$VERSION" -- --schema dbo
+    sqoop export --connect "jdbc:sqlserver://$SERVER.paraport.com;database=$DATABASE;username=$USERNAME;password=$password" --table $TABLE --export-dir "/data/ccep/processed/reportingmetricssnapshot_new/reportingperiodname=$YEARQUARTER/version=$VERSION" --input-fields-terminated-by '|' --batch -- --schema dbo
     if [ $? != 0 ]
     then
         echo "export failed"
