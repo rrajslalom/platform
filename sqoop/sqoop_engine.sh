@@ -1,5 +1,5 @@
 USERNAME="svcSqoopDLDev"
-PASSWORD='!HMuPfyv0z$u'
+PASSWORD=''
 OPERATION="$1"
 #set -e
 if [ "$OPERATION" = "import" ]
